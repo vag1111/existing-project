@@ -21,4 +21,11 @@ driver.get(website)
 # In this case, we are looking for div elements with the class 'teaser__copy-container'
 containers = driver.find_elements(by="xpath", value='//div[@class="teaser__copy-container"]')
 
-# At this point, 'containers' will hold a list of all matching elements from the page
+for container in containers:
+    title = container.find_element(by="xpath", value='//div[@class="teaser__copy-container"]/a/span').text
+    subtitle = container.find_element(by="xpath", value='//div[@class="teaser__copy-container"]/a/h3').text
+
+    link = container.find_element(by="xpath", value='//div[@class="teaser__copy-container"]/a').get_attribute("href")
+
+
+
