@@ -2,7 +2,14 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 import pandas as pd
+from datetime import datetime
+import os
+import sys
 
+app_path = os.path.dirname(sys.executable)
+
+now = datetime.now()
+month_day_year = now.strftime("%m%d%Y")
 # Define the URL of the website we want to scrape
 website = "https://www.thesun.co.uk/sport/football/"
 
@@ -55,9 +62,13 @@ my_dict = {'Titles': titles, 'Subtitle': subtitles, 'Link': links, 'Data Headlin
 
 # Convert the dictionary to a DataFrame
 df_headlines = pd.DataFrame(my_dict)
+# Define the file name
+file_name = f'Headline - {month_day_year}.csv'
+# Create the full path to save the file
+final_path = os.path.join(app_path, file_name)
 
-# Export the DataFrame to a CSV file
-df_headlines.to_csv('Headline.csv', index=False)
+# Export the DataFrame to a CSV file with index=false
+df_headlines.to_csv(final_path, index=False)
 
 # Close the WebDriver session
 driver.quit()  # Ensure to call quit() properly
